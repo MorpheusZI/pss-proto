@@ -1,4 +1,4 @@
-### PSS Prototype
+# PSS Prototype
 Ini Adalah prototype untuk project PSS (Penus Super System)
 
 Sebuah LMS Webapp yang bertujuan untuk membantu sekolah menangani tugas-tugas berulang.
