@@ -1,29 +1,35 @@
-# Create T3 App
+### PSS Prototype
+Ini Adalah prototype untuk project PSS (Penus Super System)
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+Sebuah LMS Webapp yang bertujuan untuk membantu sekolah menangani tugas-tugas berulang.
 
-## What's next? How do I make an app with this?
+### Tech Stack
+Kita menggunakan [T3 Stack](https://create.t3.gg/) Yang meliputi:
+- [NextJS](https://nextjs.org/docs) 
+- [Typescript](https://www.typescriptlang.org/docs/) 
+- [tRPC](https://trpc.io/docs) BE
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+Dan teknologi lain nya seperti: 
+- [Mantine](https://mantine.dev/getting-started/) FE
+- [Tailwind](https://tailwindcss.com/docs/installation) FE
+- [Prisma](https://www.prisma.io/docs/getting-started) BE
+- [Postgresql](https://www.postgresql.org/docs/) BE
+- [React-query](https://tanstack.com/query/latest/docs/framework/react/quick-start)
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Kontribusi
+Proses yang dijelaskan di sini memiliki beberapa tujuan:
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+- Mempertahankan kualitas LMS Webapp
+- Memperbaiki masalah yang penting bagi pengguna
+- Melibatkan komunitas dalam bekerja menuju LMS Webapp yang terbaik
+- Memungkinkan sistem yang berkelanjutan bagi pemelihara LMS Webapp untuk meninjau kontribusi
 
-## Learn More
+Harap ikuti langkah-langkah ini agar kontribusi Anda dipertimbangkan oleh pemelihara:
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+1. Fork repositori dan buat branch Anda dari `main`.
+2. Jika Anda telah menambahkan kode yang harus diuji, tambahkan tes.
+3. Jika Anda telah mengubah API, perbarui dokumentasinya.
+4. Pastikan rangkaian tes lulus.
+5. Pastikan kode Anda lulus linting.
+6. Ajukan pull request!
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
-
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
-
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
