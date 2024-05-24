@@ -1,9 +1,16 @@
 import "~/styles/globals.css";
+import "@mantine/core/styles.css";
 
-import { GeistSans } from "geist/font/sans";
-import { MantineProvider } from "@mantine/core"
+import { Poppins } from "next/font/google";
+import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 
 import { TRPCReactProvider } from "~/trpc/react";
+
+const poppins = Poppins({
+  weight: ["100", "200", "300", "400", "500"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+});
 
 export const metadata = {
   title: "Create T3 App",
@@ -17,11 +24,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${GeistSans.variable}`}>
+    <html lang="en" className={`${poppins.className}`}>
+      <head>
+        <ColorSchemeScript />
+      </head>
       <body>
-        <TRPCReactProvider>
-          <MantineProvider>{children}</MantineProvider>
-        </TRPCReactProvider>
+        <MantineProvider>
+          <TRPCReactProvider>
+            {children}
+          </TRPCReactProvider>
+        </MantineProvider>
       </body>
     </html>
   );
