@@ -23,6 +23,7 @@
     "@mantine/nprogress": "^7.9.2",
     "@prisma/client": "^5.10.2",
     "@t3-oss/env-nextjs": "^0.10.1",
+    "@tabler/icons-react": "^3.5.0",
     "@tanstack/react-query": "^5.25.0",
     "@trpc/client": "next",
     "@trpc/react-query": "next",
