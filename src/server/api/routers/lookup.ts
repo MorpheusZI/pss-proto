@@ -13,6 +13,7 @@ export const lookupUser = createTRPCRouter({
   check: publicProcedure
     .input(schema)
     .mutation(({ input }) => {
+      console.log(input);
       return `Hello ${input.email} and ${input.password}`;
     }),
 });
