@@ -1,7 +1,18 @@
 "use client";
 
-import { TextInput, Group, Button, Flex, Stack, Loader } from "@mantine/core";
+import {
+  TextInput,
+  Group,
+  Button,
+  Flex,
+  Stack,
+  Loader,
+  PasswordInput,
+  rem,
+} from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
+import { IconLockOpen } from "@tabler/icons-react";
+import { notifications } from "@mantine/notifications";
 import * as React from "react";
 import { z } from "zod";
 
@@ -9,10 +20,12 @@ import { api } from "~/trpc/react";
 
 const schema = z.object({
   email: z.string().email({ message: "Invalid email" }),
-  password: z
-    .string()
-    .min(5, { message: "Password should have at least 5 letters" }),
+  password: z.string().min(5),
 });
+
+const IconLoggedIn = (
+  <IconLockOpen style={{ width: rem(10), height: rem(10) }} />
+);
 
 const LoginPage = () => {
   const form = useForm({
@@ -25,18 +38,30 @@ const LoginPage = () => {
     validate: zodResolver(schema),
   });
 
-  const checkPost = api.checkUser.check.useMutation({
+  const LoginPost = api.User.Login.useMutation({
+    onSuccess: (user) => {
+      notifications.show({
+        title: "Login Berhasil",
+        message: `Anda berhasil login sebagai ${user.username}`,
+        bg: "blue",
+        color: "green",
+        styles: (theme) => ({
+          title: { color: "white", fontWeight: "bold" },
+          description: { color: "white" },
+        }),
+      });
+    },
     onError: (err) => {
       if (err.message === "Password yang dimasukan salah") {
-        form.setErrors({ password: err.message })
-        return
+        form.setErrors({ password: err.message });
+        return;
       }
-      form.setErrors({ email: err.message })
-    }
+      form.setErrors({ email: err.message });
+    },
   });
 
   const handleSubmit = (values: { email: string; password: string }) =>
-    checkPost.mutate(values);
+    LoginPost.mutate(values);
 
   return (
     <Flex justify="center" align="center" h="100vh">
@@ -58,8 +83,7 @@ const LoginPage = () => {
               key={form.key("email")}
               {...form.getInputProps("email")}
             />
-            <TextInput
-              type="password"
+            <PasswordInput
               withAsterisk
               label="Password"
               placeholder="Your Password"
@@ -72,9 +96,9 @@ const LoginPage = () => {
             <Button
               variant="filled"
               type="submit"
-              disabled={checkPost.isPending ?? false}
+              disabled={LoginPost.isPending ?? false}
             >
-              {checkPost.isPending ? <Loader size={20} /> : "Submit"}
+              {LoginPost.isPending ? <Loader size={20} /> : "Submit"}
             </Button>
           </Group>
         </form>

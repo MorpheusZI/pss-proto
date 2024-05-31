@@ -1,8 +1,10 @@
 import "~/styles/globals.css";
 import "@mantine/core/styles.css";
+import "@mantine/notifications/styles.css";
 
 import { Poppins } from "next/font/google";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
 
 import { TRPCReactProvider } from "~/trpc/react";
 
@@ -31,6 +33,7 @@ export default function RootLayout({
       <body>
         <MantineProvider>
           <TRPCReactProvider>
+            <Notifications />
             {children}
           </TRPCReactProvider>
         </MantineProvider>

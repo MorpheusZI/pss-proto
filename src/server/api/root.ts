@@ -8,7 +8,7 @@ import { lookupUser } from "./routers/lookup";
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
-  checkUser: lookupUser,
+  User: lookupUser,
   post: postRouter,
 });
 
