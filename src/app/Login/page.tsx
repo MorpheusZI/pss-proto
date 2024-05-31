@@ -26,9 +26,13 @@ const LoginPage = () => {
   });
 
   const checkPost = api.checkUser.check.useMutation({
-    onSuccess: (values) => {
-      console.log("bisa coy", values);
-    },
+    onError: (err) => {
+      if (err.message === "Password yang dimasukan salah") {
+        form.setErrors({ password: err.message })
+        return
+      }
+      form.setErrors({ email: err.message })
+    }
   });
 
   const handleSubmit = (values: { email: string; password: string }) =>
