@@ -1,10 +1,15 @@
-import { Group } from "@mantine/core";
+"use client"
+import { Flex } from "@mantine/core";
 import Sidebar from "../_components/Home/Sidebar";
 import Main from "../_components/Home/Main";
+import { readSessionStorageValue } from "@mantine/hooks";
+import { CurrentUser } from "~/types/types";
 
 export default function Home() {
-  return <Group>
+  const CurrentUser = readSessionStorageValue<CurrentUser>({ key: "CurrentUser" })
+
+  return <Flex>
     <Sidebar />
-    <Main />
-  </Group>
+    <Main CurrentUser={CurrentUser} />
+  </Flex>
 }

@@ -17,6 +17,10 @@ import * as React from "react";
 import { z } from "zod";
 
 import { api } from "~/trpc/react";
+import { nprogress } from "@mantine/nprogress";
+import { useRouter } from "next/navigation";
+import { useSessionStorage } from "@mantine/hooks";
+import type { CurrentUser } from "~/types/types";
 
 const schema = z.object({
   email: z.string().email({ message: "Invalid email" }),
@@ -24,10 +28,16 @@ const schema = z.object({
 });
 
 const IconLoggedIn = (
-  <IconLockOpen style={{ width: rem(10), height: rem(10) }} />
+  <IconLockOpen style={{ width: rem(20), height: rem(20) }} />
 );
 
+
 const LoginPage = () => {
+  const [_, setCurrentUser] = useSessionStorage<CurrentUser>({
+    key: 'CurrentUser',
+  })
+
+  const router = useRouter()
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
@@ -41,15 +51,22 @@ const LoginPage = () => {
   const LoginPost = api.User.Login.useMutation({
     onSuccess: (user) => {
       notifications.show({
-        title: "Login Berhasil",
+        title: "Login Berhasil!",
         message: `Anda berhasil login sebagai ${user.username}`,
-        bg: "blue",
+        icon: IconLoggedIn,
         color: "green",
-        styles: (theme) => ({
+        bg: "blue",
+        styles: () => ({
           title: { color: "white", fontWeight: "bold" },
-          description: { color: "white" },
-        }),
+          description: { color: "white" }
+        })
       });
+      nprogress.start()
+      setCurrentUser(user)
+      setTimeout(() => {
+        nprogress.complete()
+        router.push("/Home")
+      }, 1000);
     },
     onError: (err) => {
       if (err.message === "Password yang dimasukan salah") {

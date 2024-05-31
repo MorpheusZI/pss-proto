@@ -1,5 +1,6 @@
 import { TRPCError } from "@trpc/server";
 import { user } from "Utilities/ProtoStorage/user";
+import { IdentifyUserStatus } from "Utilities/utils";
 import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
@@ -29,6 +30,8 @@ export const lookupUser = createTRPCRouter({
     const FoundPassword = user.find((usr) => usr.password === input.password);
     if (!FoundPassword) throw new TRPCError(PasswordNotMatchErr);
 
-    return FoundEmail;
+    const User = IdentifyUserStatus(FoundEmail)
+
+    return User;
   }),
 });
