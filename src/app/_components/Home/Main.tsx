@@ -1,7 +1,7 @@
 import { Group, Stack } from "@mantine/core";
 import { IconClock, IconNavigationStar } from "@tabler/icons-react";
-import { jadwal } from "Utilities/ProtoStorage/user";
-import { ambilHari } from "Utilities/utils";
+import { jadwal } from "src/Utilities/ProtoStorage/user";
+import { ambilHari } from "src/Utilities/utils";
 import type { Jadwal, MainComponentProps, nama_hari } from '~/types/types';
 
 export default function Main({ CurrentUser }: MainComponentProps) {

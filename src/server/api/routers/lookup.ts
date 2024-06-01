@@ -1,6 +1,6 @@
 import { TRPCError } from "@trpc/server";
-import { user } from "Utilities/ProtoStorage/user";
-import { IdentifyUserStatus } from "Utilities/utils";
+import { user } from "src/Utilities/ProtoStorage/user";
+import { IdentifyUserStatus } from "src/Utilities/utils";
 import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
