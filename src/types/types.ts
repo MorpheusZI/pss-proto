@@ -22,5 +22,5 @@ export type Jadwal = {
 }
 
 export type MainComponentProps = {
-  CurrentUser: CurrentUser
+  CurrentUser?: CurrentUser
 }

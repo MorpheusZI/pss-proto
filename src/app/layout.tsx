@@ -33,13 +33,13 @@ export default function RootLayout({
         <ColorSchemeScript />
       </head>
       <body>
-        <MantineProvider>
-          <TRPCReactProvider>
+        <TRPCReactProvider>
+          <MantineProvider>
             <NavigationProgress />
             <Notifications />
             {children}
-          </TRPCReactProvider>
-        </MantineProvider>
+          </MantineProvider>
+        </TRPCReactProvider>
       </body>
     </html>
   );

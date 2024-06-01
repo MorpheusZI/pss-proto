@@ -54,6 +54,8 @@
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.11",
     "prisma": "^5.10.2",
+    "qr-scanner": "^1.4.2",
+    "react-qr-code": "^2.0.13",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.4.2"
   },

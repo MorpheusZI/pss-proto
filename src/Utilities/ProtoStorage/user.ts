@@ -1,4 +1,4 @@
-import { Jadwal, User } from "~/types/types";
+import type { Jadwal, User } from "~/types/types";
 
 export const user: User[] = [
   {

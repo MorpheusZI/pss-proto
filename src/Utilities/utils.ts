@@ -8,17 +8,13 @@ export function ambilHari(): nama_hari | undefined {
 }
 
 export function IdentifyUserStatus(user: User): CurrentUser {
+  const UserWithStatus: CurrentUser = { ...user };
 
-  let UserWithStatus: CurrentUser = { ...user };
-
-  const matchSiswa = new RegExp(/^22/)
-  const matchGuru = new RegExp(/^0/)
-
-  if (matchSiswa.test(user.NIU)) {
+  if (user.NIU.startsWith("22")) {
     UserWithStatus.status = "Siswa"
   }
 
-  if (matchGuru.test(user.NIU)) {
+  if (user.NIU.startsWith("0")) {
     UserWithStatus.status = "Guru"
   }
 
