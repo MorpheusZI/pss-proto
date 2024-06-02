@@ -1,26 +1,40 @@
-export type nama_hari = "Minggu" | "Senin" | "Selasa" | "Rabu" | "Kamis" | "Jumat" | "Sabtu"
+import type { QrcodeErrorCallback, QrcodeSuccessCallback } from "html5-qrcode";
+import { Dispatch, SetStateAction } from "react";
+
+export type nama_hari =
+  | "Minggu"
+  | "Senin"
+  | "Selasa"
+  | "Rabu"
+  | "Kamis"
+  | "Jumat"
+  | "Sabtu";
 
 export type User = {
-  user_id: number,
-  username: string,
-  NIU: string,
-  email: string,
-  password: string,
-}
+  user_id: number;
+  username: string;
+  NIU: string;
+  email: string;
+  password: string;
+};
 
-type UserStatus = "Siswa" | "Guru"
+type UserStatus = "Siswa" | "Guru";
 export interface CurrentUser extends User {
   status?: UserStatus;
 }
 
 export type Jadwal = {
-  user_ref: string,
+  user_ref: string;
   Jadwal: {
-    hari: nama_hari,
-    WaktuKelas: { jam: string, kelas: string }[]
-  }[]
-}
+    hari: nama_hari;
+    WaktuKelas: { jam: string; kelas: string }[];
+  }[];
+};
 
 export type MainComponentProps = {
-  CurrentUser?: CurrentUser
-}
+  CurrentUser?: CurrentUser;
+};
+
+export type QRScannerProps = {
+  addUser: Dispatch<SetStateAction<(CurrentUser | undefined)[]>>;
+};
