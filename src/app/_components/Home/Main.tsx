@@ -1,6 +1,6 @@
 "use client"
-import { ActionIcon, Button, Group, Loader, Stack, Tooltip } from "@mantine/core";
-import { IconCalendarUp, IconClock, IconSearch, } from "@tabler/icons-react";
+import { ActionIcon, Button, Flex, Group, Loader, Stack, TextInput, Tooltip, Transition } from "@mantine/core";
+import { IconCalendarUp, IconClock, IconSearch, IconX, } from "@tabler/icons-react";
 import Link from "next/link";
 import { jadwal } from "src/Utilities/ProtoStorage/user";
 import { ambilHari } from "src/Utilities/utils";
@@ -23,8 +23,8 @@ export default function Main({ CurrentUser }: MainComponentProps) {
   }
 
   return (
-    <Stack gap="xl" className="w-full h-screen py-5">
-      <Group align="start" justify="space-between" className="w-full border-t border-t-[#C00000] border-x border-x-[#C00000] p-5 rounded-t-3xl bg-gradient-to-b from-[#282828] ">
+    <Stack gap="xl" className="w-full py-5">
+      <Group align="start" justify="space-between" className="w-full p-5 rounded-t-3xl bg-gradient-to-b from-[#282828] ">
         <Stack gap="0">
           <h1 className="text-5xl">Hello</h1>
           <p className="text-xl pl-1">{CurrentUser.username}</p>
@@ -39,14 +39,20 @@ export default function Main({ CurrentUser }: MainComponentProps) {
           )}
         </div>
       </Group>
-
-      <JadwalRC CurrentUser={CurrentUser} HariIni={HariIni || "Senin"} />
-
+      <Flex direction="row">
+        <div className="w-1/2">
+          <JadwalRC CurrentUser={CurrentUser} HariIni={HariIni || "Senin"} />
+        </div>
+        <div className="w-1/2">
+          <JadwalRC CurrentUser={CurrentUser} HariIni={HariIni || "Senin"} />
+        </div>
+      </Flex>
     </Stack>
   );
 }
 
 function JadwalRC({ CurrentUser, HariIni }: JadRCProps) {
+  const [OpenedSearchBar, setOpenedSearchBar] = useState<boolean>(false)
   const [SearchTerm, setSearchTerm] = useState("")
 
   const Schedules: Jadwal | undefined = jadwal.find(
@@ -57,7 +63,9 @@ function JadwalRC({ CurrentUser, HariIni }: JadRCProps) {
   )?.WaktuKelas;
 
   const renderJadwal = useMemo(() => {
-    return JadwalHariIni?.map((desc, index) => {
+    const filteredJadwal = JadwalHariIni?.filter((jad) => jad.kelas.toLowerCase().includes(SearchTerm.toLowerCase()))
+
+    return filteredJadwal?.map((desc, index) => {
       const KelasString = desc.kelas.split(" ").join("-");
 
       return (
@@ -83,28 +91,42 @@ function JadwalRC({ CurrentUser, HariIni }: JadRCProps) {
   }, [SearchTerm]);
 
 
-  return <Group justify="space-between" className="w-full">
-    <div className="w-1/2 px-3">
-      <Stack gap={10} >
-        <Group justify="space-between">
-          <Group gap={"1em"}>
-            <IconCalendarUp />
-            <h1 className="text-2xl">{CurrentUser?.status === "Guru" ? "Jadwal Hari ini" : "Tugas"}</h1>
-          </Group>
+  /*              */
+  return <div className="px-3">
+    <Stack gap={10} >
+      <Group justify="space-between">
+        <Group gap={"1em"}>
+          <IconCalendarUp />
+          <h1 className="text-2xl">{CurrentUser?.status === "Guru" ? "Jadwal Hari ini" : "Tugas"}</h1>
+        </Group>
+        <Group gap={12}>
+          <input
+            className={"w-[8rem] text-sm rounded text-black px-2 focus:outline focus:outline-[#C00000] " + (!OpenedSearchBar ? "opacity-0 translate-x-[5rem] " : "opacity-1 ") + "transform transition-all duration-700"}
+            value={SearchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            disabled={!OpenedSearchBar}
+          />
           <Tooltip label="Cari kelas">
-            <ActionIcon variant="subtle" color="white" className="mr-3 hover:bg-white hover:text-black" >
-              <IconSearch />
+            <ActionIcon
+              variant="subtle"
+              onClick={() => {
+                setOpenedSearchBar(!OpenedSearchBar)
+                setSearchTerm("")
+              }}
+              color="white" className=" hover:bg-white hover:text-black" >
+              {!OpenedSearchBar ? <IconSearch /> : <IconX />}
             </ActionIcon>
           </Tooltip>
         </Group>
-        <Stack gap={0} className="px-3 py-2 bg-gradient-to-b from-[#282828] to-[#181818] border-2 rounded-xl border-red-700">
-          {CurrentUser?.status === "Guru" ? (
-            renderJadwal
-          ) : (
-            <p>Gaada Tugas</p>
-          )}
-        </Stack>
+      </Group>
+      <Stack gap={0} className="px-3 py-2 bg-gradient-to-b from-[#282828] to-[#181818] border-2 rounded-xl border-red-700">
+        {CurrentUser?.status === "Guru" ? (
+          renderJadwal
+        ) : (
+          <p>Gaada Tugas</p>
+        )}
       </Stack>
-    </div>
-  </Group>
+    </Stack>
+  </div>
+
 }

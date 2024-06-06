@@ -1,5 +1,5 @@
 "use client"
-import { Group, rem } from "@mantine/core";
+import { Box, Container, Flex, Loader, rem } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import SideBar from "../_components/Home/Sidebar";
 import { IconLockX } from "@tabler/icons-react";
@@ -32,8 +32,14 @@ export default function HomeLayout({ children }: { children: React.ReactNode }) 
     setCurrentUser(CurrentUsr)
   }, [])
 
-  return <Group gap="md" bg="black" className="w-full text-white">
+  return <Flex gap="md" bg="black" className="w-full min-h-screen text-white">
     <SideBar CurrentUser={CurrentUser} />
-    {children}
-  </Group>
+    {!CurrentUser ? <Container className=" flex align-center justify-center" >
+      <Loader color={"#C00000"} className="self-center" />
+    </Container>
+      : <Container p={0} w={"100%"}>
+        {children}
+      </Container>
+    }
+  </Flex>
 }

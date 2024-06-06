@@ -1,6 +1,6 @@
 "use client"
 
-import { Container, rem } from "@mantine/core"
+import { Box, rem } from "@mantine/core"
 import { readSessionStorageValue } from "@mantine/hooks"
 
 import Main from "../_components/Home/Main"
@@ -35,9 +35,9 @@ const Home = () => {
   }, [])
 
 
-  return <Container className="w-full p-0">
+  return <Box className="w-full p-0 ">
     <Main CurrentUser={CurrentUser} />
-  </Container>
+  </Box>
 }
 
 export default Home
