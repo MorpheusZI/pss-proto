@@ -30,11 +30,3 @@ export type Jadwal = {
     WaktuKelas: { jam: string; kelas: string }[];
   }[];
 };
-
-export type MainComponentProps = {
-  CurrentUser?: CurrentUser;
-};
-
-export type QRScannerProps = {
-  addUser: Dispatch<SetStateAction<(CurrentUser | undefined)[]>>;
-};

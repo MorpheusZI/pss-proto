@@ -1,17 +1,15 @@
 "use client"
+import { Group, rem } from "@mantine/core";
+import React, { useEffect, useState } from "react";
+import SideBar from "../_components/Home/Sidebar";
+import { IconLockX } from "@tabler/icons-react";
+import { notifications } from "@mantine/notifications";
+import { redirect } from "next/navigation";
+import { readSessionStorageValue } from "@mantine/hooks";
+import type { CurrentUser } from "~/types/types";
 
-import { Container, rem } from "@mantine/core"
-import { readSessionStorageValue } from "@mantine/hooks"
+export default function HomeLayout({ children }: { children: React.ReactNode }) {
 
-import Main from "../_components/Home/Main"
-
-import type { CurrentUser } from "src/types/types"
-import { redirect } from "next/navigation"
-import { useEffect, useState } from "react"
-import { notifications } from "@mantine/notifications"
-import { IconLockX } from "@tabler/icons-react"
-
-const Home = () => {
   const IconNope = <IconLockX style={{ width: rem(17), height: rem(17) }} />
   const [CurrentUser, setCurrentUser] = useState<CurrentUser>()
 
@@ -34,10 +32,8 @@ const Home = () => {
     setCurrentUser(CurrentUsr)
   }, [])
 
-
-  return <Container className="w-full p-0">
-    <Main CurrentUser={CurrentUser} />
-  </Container>
+  return <Group gap="md" bg="black" className="w-full text-white">
+    <SideBar CurrentUser={CurrentUser} />
+    {children}
+  </Group>
 }
-
-export default Home

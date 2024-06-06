@@ -14,7 +14,7 @@ const QRScanner = ({ addUser }: QRScannerProps) => {
       qrbox: { width: 250, height: 250 },
     };
 
-    const onSSuccess: QrcodeSuccessCallback = (decodedString, res) => {
+    const onSSuccess: QrcodeSuccessCallback = (decodedString) => {
       const User: CurrentUser = JSON.parse(decodedString);
       addUser((prev) => [...prev, User]);
     };
@@ -25,7 +25,7 @@ const QRScanner = ({ addUser }: QRScannerProps) => {
 
     const qrCodeScanner = new Html5QrcodeScanner(qrCodeRegionId, config, false);
     qrCodeScanner.render(onSSuccess, onSF);
-  }, []);
+  }, [addUser]);
 
   return <div id={qrCodeRegionId}></div>;
 };
