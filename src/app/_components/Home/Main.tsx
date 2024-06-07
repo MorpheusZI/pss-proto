@@ -1,11 +1,11 @@
 "use client"
-import { ActionIcon, Button, Flex, Group, Loader, Stack, TextInput, Tooltip, Transition } from "@mantine/core";
+import { ActionIcon, Button, Flex, Group, Loader, Stack, Tooltip, } from "@mantine/core";
 import { IconCalendarUp, IconClock, IconSearch, IconX, } from "@tabler/icons-react";
 import Link from "next/link";
 import { jadwal } from "src/Utilities/ProtoStorage/user";
 import { ambilHari } from "src/Utilities/utils";
 import QRCode from "react-qr-code";
-import type { Jadwal, nama_hari } from "~/types/types";
+import type { CurrentUser, Jadwal, nama_hari } from "~/types/types";
 import type { JadRCProps, MainComponentProps } from "~/types/props";
 import dayjs from "dayjs";
 import { useMemo, useState } from "react";
@@ -29,26 +29,22 @@ export default function Main({ CurrentUser }: MainComponentProps) {
           <h1 className="text-5xl">Hello</h1>
           <p className="text-xl pl-1">{CurrentUser.username}</p>
         </Stack>
-        <div>
-          {CurrentUser.status === "Siswa" ? (
-            <QRCode value={JSON.stringify(CurrentUser)} />
-          ) : (
-            <p className="flex font-bold gap-2 items-center">
-              {HariIni}, {TanggalSekarang}
-            </p>
-          )}
-        </div>
       </Group>
       <Flex direction="row">
         <div className="w-1/2">
-          <JadwalRC CurrentUser={CurrentUser} HariIni={HariIni || "Senin"} />
-        </div>
-        <div className="w-1/2">
-          <JadwalRC CurrentUser={CurrentUser} HariIni={HariIni || "Senin"} />
+          {CurrentUser.status === "Guru"
+            ? <JadwalRC CurrentUser={CurrentUser} HariIni={HariIni || "Sabtu"} />
+            : <QRCodeBoxSC cUser={CurrentUser} />}
         </div>
       </Flex>
     </Stack>
   );
+}
+
+function QRCodeBoxSC({ cUser }: { cUser: CurrentUser }) {
+  return <div>
+    <QRCode value={JSON.stringify(cUser)} />
+  </div>
 }
 
 function JadwalRC({ CurrentUser, HariIni }: JadRCProps) {
@@ -119,12 +115,7 @@ function JadwalRC({ CurrentUser, HariIni }: JadRCProps) {
           </Tooltip>
         </Group>
       </Group>
-      <Stack gap={0} className="px-3 py-2 bg-gradient-to-b from-[#282828] to-[#181818] border-2 rounded-xl border-red-700">
-        {CurrentUser?.status === "Guru" ? (
-          renderJadwal
-        ) : (
-          <p>Gaada Tugas</p>
-        )}
+      <Stack gap={0} className="px-3 py-2 bg-gradient-to-b from-[#282828] to-[#181818] border-2 rounded-xl border-red-700">   {renderJadwal}
       </Stack>
     </Stack>
   </div>

@@ -1,5 +1,5 @@
 "use client";
-import { Button, Container, Flex, Stack } from "@mantine/core";
+import { Container, Flex, Stack } from "@mantine/core";
 import { useState } from "react";
 import QRScanner from "~/app/_components/Utils/QRScanner";
 import type { CurrentUser } from "~/types/types";
@@ -12,9 +12,8 @@ export default function AbsensiSession({
   const [ResArr, setResArr] = useState<(CurrentUser | undefined)[]>([]);
   return (
     <Flex bg={"dark"} gap={"lg"} className="h-screen text-white">
-      <Container w={"50%"}>
+      <Container className="w-1/2">
         <QRScanner addUser={setResArr} />
-        <Button onClick={() => console.log("hahay")}>Scan</Button>
       </Container>
       <Container>
         <Stack>

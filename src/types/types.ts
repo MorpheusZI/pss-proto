@@ -1,6 +1,3 @@
-import type { QrcodeErrorCallback, QrcodeSuccessCallback } from "html5-qrcode";
-import { Dispatch, SetStateAction } from "react";
-
 export type nama_hari =
   | "Minggu"
   | "Senin"
@@ -19,6 +16,7 @@ export type User = {
 };
 
 type UserStatus = "Siswa" | "Guru";
+
 export interface CurrentUser extends User {
   status?: UserStatus;
 }
@@ -29,4 +27,6 @@ export type Jadwal = {
     hari: nama_hari;
     WaktuKelas: { jam: string; kelas: string }[];
   }[];
+
 };
+
