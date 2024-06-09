@@ -29,6 +29,7 @@ export default function Main({ CurrentUser }: MainComponentProps) {
           <h1 className="text-5xl">Hello</h1>
           <p className="text-xl pl-1">{CurrentUser.username}</p>
         </Stack>
+        {TanggalSekarang}
       </Group>
       <Flex direction="row">
         <div className="w-1/2">

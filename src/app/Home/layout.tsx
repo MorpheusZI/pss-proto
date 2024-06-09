@@ -1,12 +1,12 @@
 "use client"
-import { Box, Container, Flex, Loader, rem } from "@mantine/core";
+import { Container, Flex, Loader, rem } from "@mantine/core";
 import React, { useEffect, useState } from "react";
-import SideBar from "../_components/Home/Sidebar";
 import { IconLockX } from "@tabler/icons-react";
 import { notifications } from "@mantine/notifications";
 import { redirect } from "next/navigation";
 import { readSessionStorageValue } from "@mantine/hooks";
 import type { CurrentUser } from "~/types/types";
+import SideBar from "~/_components/Home/Sidebar";
 
 export default function HomeLayout({ children }: { children: React.ReactNode }) {
 
@@ -33,7 +33,7 @@ export default function HomeLayout({ children }: { children: React.ReactNode }) 
   }, [])
 
   return <Flex gap="md" bg="black" className="w-full min-h-screen text-white">
-    <SideBar CurrentUser={CurrentUser} />
+    <SideBar />
     {!CurrentUser ? <Container className=" flex align-center justify-center" >
       <Loader color={"#C00000"} className="self-center" />
     </Container>

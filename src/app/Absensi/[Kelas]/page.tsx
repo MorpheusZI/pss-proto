@@ -1,7 +1,8 @@
 "use client";
 import { Container, Flex, Stack } from "@mantine/core";
+import { Result } from "@zxing/library";
 import { useState } from "react";
-import QRScanner from "~/app/_components/Utils/QRScanner";
+import { Scanner } from "~/_components/Utils/QRZxing";
 import type { CurrentUser } from "~/types/types";
 
 export default function AbsensiSession({
@@ -10,10 +11,21 @@ export default function AbsensiSession({
   params: { Kelas: string };
 }) {
   const [ResArr, setResArr] = useState<(CurrentUser | undefined)[]>([]);
+
+  const handleUpdate = (e: unknown, data: Result | undefined) => {
+    if (data) {
+      const UserData: CurrentUser = JSON.parse(data.getText())
+      setResArr(prevSex => [...prevSex, UserData])
+    }
+    if (e) {
+      console.error("et rusak cog", e)
+    }
+  }
+
   return (
     <Flex bg={"dark"} gap={"lg"} className="h-screen text-white">
       <Container className="w-1/2">
-        <QRScanner addUser={setResArr} />
+        <Scanner onUpdate={handleUpdate} />
       </Container>
       <Container>
         <Stack>

@@ -3,7 +3,7 @@
 import { Box, rem } from "@mantine/core"
 import { readSessionStorageValue } from "@mantine/hooks"
 
-import Main from "../_components/Home/Main"
+import Main from "~/_components/Home/Main"
 
 import type { CurrentUser } from "src/types/types"
 import { redirect } from "next/navigation"
