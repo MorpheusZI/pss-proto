@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import type { CurrentUser, nama_hari } from "./types";
+import { ButtonProps } from "@mantine/core";
 
 export type MainComponentProps = {
   CurrentUser?: CurrentUser;
@@ -15,3 +16,4 @@ export type SidebarComponentProps = {
 export type QRScannerProps = {
   addUser: Dispatch<SetStateAction<(CurrentUser | undefined)[]>>;
 };
+

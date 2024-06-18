@@ -66,9 +66,9 @@ export const Scanner = ({
 
           // Convert the canvas to a data URL
           const croppedImage = canvas.toDataURL("image/jpeg");
-          setImageURL(croppedImage);
+          setImageURL("/ABIQR.png");
           reader
-            .decodeFromImageUrl("/ABIQR.jpeg")
+            .decodeFromImageUrl("/ABIQR.png")
             .then((res) => {
               setScannerState("success");
               onUpdate(null, res);
@@ -106,7 +106,7 @@ export const Scanner = ({
         onUserMediaError={onError}
       />
 
-      <img src={ImageURL} alt="ahay" />
+      <img src="/ABIQR.png" alt="ahay" />
       <div style={qrBoxStyle}></div>
       <div style={scannerStateStyle}>
         <p>Scanner State: {scannerState}</p>

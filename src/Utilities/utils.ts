@@ -21,3 +21,4 @@ export function IdentifyUserStatus(user: User): CurrentUser {
 
   return UserWithStatus
 }
+

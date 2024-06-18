@@ -14,6 +14,7 @@ export type User = {
   email: string;
   password: string;
 };
+export type buttonLoadingState = "null" | "loading" | "fulffilled"
 
 type UserStatus = "Siswa" | "Guru";
 

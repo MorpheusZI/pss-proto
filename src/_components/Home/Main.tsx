@@ -10,6 +10,7 @@ import {
 } from "@mantine/core";
 import {
   IconCalendarUp,
+  IconCheck,
   IconClock,
   IconSearch,
   IconX,
@@ -19,10 +20,10 @@ import { toPng } from "html-to-image";
 import { jadwal } from "src/Utilities/ProtoStorage/user";
 import { ambilHari } from "src/Utilities/utils";
 import QRCode from "qrcode.react";
-import type { CurrentUser, Jadwal, nama_hari } from "~/types/types";
+import type { CurrentUser, Jadwal, buttonLoadingState, nama_hari } from "~/types/types";
 import type { JadRCProps, MainComponentProps } from "~/types/props";
 import dayjs from "dayjs";
-import { useMemo, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useMemo, useRef, useState } from "react";
 
 export default function Main({ CurrentUser }: MainComponentProps) {
   const HariIni: nama_hari | undefined = ambilHari();
@@ -64,29 +65,57 @@ export default function Main({ CurrentUser }: MainComponentProps) {
 
 function QRCodeBoxSC({ cUser }: { cUser: CurrentUser }) {
   const namaSiswa = cUser.username.split(" ").join("_").toUpperCase();
+  const [Loading, setLoading] = useState<buttonLoadingState>("null")
   const qrref = useRef(null);
 
   const downloadQRCode = () => {
-    if (qrref === null) {
+    setLoading("loading")
+    if (qrref.current === null) {
       return;
     }
-    console.log(qrref);
-    console.log("Hello bro");
     //@ts-ignore
     toPng(qrref.current).then((dataURL) => {
       const link = document.createElement("a");
       link.href = dataURL;
       link.download = `Kode-QR-Absensi_${namaSiswa}.png`;
       link.click();
+    }).finally(() => {
+      setLoading("fulffilled")
     });
   };
 
+  function renderDownloadButton(content: string, state: buttonLoadingState, setter: Dispatch<SetStateAction<buttonLoadingState>>) {
+    switch (state) {
+      case "null":
+        return <Button color="#C00000" onClick={downloadQRCode} className="w-fit">
+          {content}
+        </Button>
+
+      case "loading":
+        return <Button color="#C00000" onClick={downloadQRCode} className="w-fit">
+          <Loader color="#FFF" size={20} className="text-white" />
+        </Button>
+
+      case "fulffilled":
+        if (!setter) return "brah"
+        setTimeout(() => {
+          setter("null")
+        }, 1000);
+        return <Button color="#C00000" onClick={downloadQRCode} className="w-fit">
+          <IconCheck className="text-white" />
+        </Button>
+
+      default:
+        break;
+    }
+  }
+
   return (
-    <Stack justify="center" align="center">
-      <QRCode className="w-full" value={JSON.stringify(cUser)} ref={qrref} />
-      <Button color="#C00000" onClick={downloadQRCode} className="w-fit">
-        Download Kode QR
-      </Button>
+    <Stack className="w-fit" justify="center" align="center">
+      <div ref={qrref}>
+        <QRCode size={200} className="w-full" value={JSON.stringify(cUser)} />
+      </div>
+      {renderDownloadButton("Download Kode QR", Loading, setLoading)}
     </Stack>
   );
 }
