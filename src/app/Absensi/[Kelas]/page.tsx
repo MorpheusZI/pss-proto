@@ -14,19 +14,17 @@ export default function AbsensiSession({
 
   const handleUpdate = (e: unknown, data: Result | undefined) => {
     if (data) {
-      const UserData: CurrentUser = JSON.parse(data.getText())
-      setResArr(prevSex => [...prevSex, UserData])
+      const UserData: CurrentUser = JSON.parse(data.getText());
+      setResArr((prevSex) => [...prevSex, UserData]);
     }
     if (e) {
-      console.error("et rusak cog", e)
+      console.error("et rusak cog", e);
     }
-  }
+  };
 
   return (
     <Flex bg={"dark"} gap={"lg"} className="h-screen text-white">
-      <Container className="w-1/2">
-        <Scanner onUpdate={handleUpdate} />
-      </Container>
+      <Scanner width="500px" onUpdate={handleUpdate} />
       <Container>
         <Stack>
           <p className="font-bold text-white">Hello {params.Kelas}</p>
