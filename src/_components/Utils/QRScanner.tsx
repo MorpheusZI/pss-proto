@@ -16,7 +16,8 @@ const QRScanner = ({ addUser }: QRScannerProps) => {
       qrbox: { width: 250, height: 250 },
     };
 
-    const onSSuccess: QrcodeSuccessCallback = (decodedString) => {
+    const onSSuccess: QrcodeSuccessCallback = (decodedString: string) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const User: CurrentUser = JSON.parse(decodedString);
       addUser((prev) => [...prev, User]);
     };

@@ -23,7 +23,8 @@ import QRCode from "qrcode.react";
 import type { CurrentUser, Jadwal, buttonLoadingState, nama_hari } from "~/types/types";
 import type { JadRCProps, MainComponentProps } from "~/types/props";
 import dayjs from "dayjs";
-import { Dispatch, SetStateAction, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
+import type { Dispatch, SetStateAction, } from "react"
 
 export default function Main({ CurrentUser }: MainComponentProps) {
   const HariIni: nama_hari | undefined = ambilHari();
@@ -53,7 +54,7 @@ export default function Main({ CurrentUser }: MainComponentProps) {
       <Flex direction="row">
         <div className="w-1/2">
           {CurrentUser.status === "Guru" ? (
-            <JadwalRC CurrentUser={CurrentUser} HariIni={HariIni || "Sabtu"} />
+            <JadwalRC CurrentUser={CurrentUser} HariIni={HariIni ?? "Sabtu"} />
           ) : (
             <QRCodeBoxSC cUser={CurrentUser} />
           )}
@@ -73,13 +74,15 @@ function QRCodeBoxSC({ cUser }: { cUser: CurrentUser }) {
     if (qrref.current === null) {
       return;
     }
-    //@ts-ignore
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     toPng(qrref.current).then((dataURL) => {
       const link = document.createElement("a");
       link.href = dataURL;
       link.download = `Kode-QR-Absensi_${namaSiswa}.png`;
       link.click();
-    }).finally(() => {
+    }).catch((e) => console.error(e)).finally(() => {
       setLoading("fulffilled")
     });
   };

@@ -5,6 +5,7 @@ import { IconHome2, IconLogout, IconReportAnalytics, IconSettings2 } from "@tabl
 import { useRouter } from "next/navigation";
 export default function SideBar() {
   const router = useRouter()
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const [User, setUser, removeUser] = useSessionStorage({
     key: "CurrentUser",
